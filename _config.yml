@@ -1,6 +1,4 @@
 theme: jekyll-theme-cayman
-github_comments:
-  repo: gituser/gitrepo
-  branch: master
-  comment_template: comments.html
-  comments_template: comments.html
+layout: default
+comments: true
+# other options
