@@ -25,36 +25,26 @@ Syntax highlighted code block
 ### Logs
 ### Gallery
 ### Discussion/Comments
-<!-- Adds an empty comment section to the page -->
-{% responses %}
-{% endresponses %}
 
-<!-- Top level comments -->
-{% responses %}
-  {% response author="Steve" email="steve@nourish.je" date="2016-11-23 16:08:32" param="value" %}
-    This is a comment
-  {% endresponse %}
-  {% response author="Steve" email="steve@nourish.je" date="2016-11-23 16:08:32" param="value" %}
-    So is this
-  {% endresponse %}
-{% endresponses %}
+{% if page.comments %}
+<div id="disqus_thread"></div>
+<script>
 
-<!-- Threaded comments -->
-{% responses %}
-  {% response author="Steve" email="steve@nourish.je" date="2016-11-23 16:08:32" param="value" %}
-    This is a comment
-    {% responses %}
-      {% response author="Steve" email="steve@nourish.je" date="2016-11-23 16:08:32" param="value" %}
-        This is a reply
-        {% responses %}
-          {% response author="Steve" email="steve@nourish.je" date="2016-11-23 16:08:32" param="value" %}
-            You can nest them as deep as you like
-          {% endreponse %}
-        {% endresponses %}
-      {% endresponse %}
-      {% response author="Steve" email="steve@nourish.je" date="2016-11-23 16:08:32" param="value" %}
-        A second reply to the top comment
-      {% endresponse %}
-    {% endresponses %}
-  {% endresponse %}
-{% endresponses %}
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://https-yukioyama-github-io-robot-localization.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+{% endif %} 
