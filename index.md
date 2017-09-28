@@ -1,8 +1,9 @@
 ## Description
 
 ### Details
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+
 ### Components
+
 ### Code
 ```markdown
 Syntax highlighted code block
