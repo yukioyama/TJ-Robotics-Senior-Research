@@ -1,26 +1,14 @@
-## Description
+### Description
+TJNav is a project by Yuki Oyama and Ethian Liu at the Thomas Jefferson High School for Science and Technology Robotics Lab.  The goal of our project is to create an indoor navigation robot that is capable of guiding a user to any room within the building at TJ.  While this project is specific to our building, given any map of any building, it should be able to navigate just as well.
 
 ### Details
+The project consists of two-stages.  Stage one consists of the robot's localization ability.  To address the problem of localization, we utilized LIDAR sensor data for error correction and IMU & VESC Motor Controller Odometry data.  We feed this data into an Adaptive Monte Carlo Algorithm in order to create a probability density function to determine the most likely postition of the robot at each time frame.  Stage two consists of the robot's navigation ability.  To accomplish navigation throughout the TJHSST building, we implement the A-star Algorithm using distance heuristics to determine the shortest path a robot must traverse——the rooms represent nodes of the graph.
 
 ### Components
 
 ### Code
 ```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+Print("Code is currently unavailable")
 ```
 ### Logs
 ### Gallery
