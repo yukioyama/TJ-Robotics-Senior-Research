@@ -11,6 +11,7 @@ The project consists of two-stages.  Stage one consists of the robot's localizat
 Print("Code is currently unavailable")
 ```
 ### Logs
+11/1:Finished soldering battery connector circuit.
 ### Gallery
 ### Discussion/Comments
 
