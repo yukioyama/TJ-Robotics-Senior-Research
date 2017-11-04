@@ -10,8 +10,9 @@ The project consists of two-stages. Stage one consists of the robot's localizati
 ## [](#Components)Components
 
 ## [](#Code)Code
-
+```js
 Print("Code is currently unavailable")
+```
 ## [](#Logs)Logs
 
 11/1:Finished soldering battery connector circuit. Project order forms complete for XT60 connectors/Acrylic for chassis.
