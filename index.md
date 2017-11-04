@@ -1,6 +1,4 @@
----
-layout: default
----
+
 ##Description
 
 TJNav is a project by Yuki Oyama and Ethian Liu at the Thomas Jefferson High School for Science and Technology Robotics Lab. The goal of our project is to create an indoor navigation robot that is capable of guiding a user to any room within the building at TJ. While this project is specific to our building, given any map of any building, it should be able to navigate just as well.
