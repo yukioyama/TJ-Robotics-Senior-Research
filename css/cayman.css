@@ -53,7 +53,10 @@ a {
   color: #fff;
   text-align: center;
   background-color: #159957;
-  background-image: url("robotpic2.png"); }
+  background-image: url("robotpic2.png"); 
+background-size: cover;
+}
+
   @media screen and (min-width: 64em) {
     .page-header {
       padding: 5rem 6rem; } }
