@@ -26,8 +26,10 @@ TJNav is a project by Yuki Oyama and Ethan Liu at the Thomas Jefferson High Scho
       The project consists of two-stages.  Stage one consists of the robot's localization ability.  To address the problem of localization, we utilized LIDAR sensor data for error correction and IMU & VESC Motor Controller Odometry data.  We feed this data into an Adaptive Monte Carlo Algorithm in order to create a probability density function to determine the most likely postition of the robot at each time frame.  Stage two consists of the robot's navigation ability.  To accomplish navigation throughout the TJHSST building, we implement the A-star Algorithm using distance heuristics to determine the shortest path a robot must traverse—the rooms represent nodes of the graph.
        <h2>
       <a id="user-content-header-2" class="anchor" href="#header-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code</h2>
+      
       Move_base.launch: updated 5/12
-      <pre><code>   <launch>
+      <pre><code>   
+      <launch>
   <!-- map server -->
   <arg name="map" default="$(find solace)/maps/buki.yaml" />
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map)" />
@@ -99,7 +101,7 @@ TJNav is a project by Yuki Oyama and Ethan Liu at the Thomas Jefferson High Scho
 
 controller_frequency: 2.0
 
-</code></pre>
+<</code></pre>
       
        Global_costmap_parameters.txt: Updated 5/12
       <pre><code>  
