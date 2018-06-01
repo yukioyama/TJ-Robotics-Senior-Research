@@ -27,6 +27,48 @@ TJNav is a project by Yuki Oyama and Ethan Liu at the Thomas Jefferson High Scho
        <h2>
       <a id="user-content-header-2" class="anchor" href="#header-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code</h2>
       
+  
+      
+       Local_costmap_parameters.txt: Updated 5/12
+      <pre><code>  
+      local_costmap:
+  global_frame: odom
+  robot_base_frame: base_link
+  update_frequency: 2.0
+  publish_frequency: 2.0
+  static_map: false
+  rolling_window: true
+  width: 6.0
+  height: 6.0
+  resolution: 0.01
+
+controller_frequency: 2.0
+
+</code></pre>
+      
+       Global_costmap_parameters.txt: Updated 5/12
+      <pre><code>  
+     global_costmap:
+  global_frame: /map
+  robot_base_frame: base_link
+  update_frequency: 2.0
+  static_map: true
+
+
+</code></pre>
+       Common_costmap_parameters.txt: Updated 5/12
+      <pre><code>    
+   obstacle_range: 10.0
+raytrace_range: 12.0
+footprint: [[-0.22, 0.26], [0.22, 0.26], [0.22, -0.26], [-0.22, -0.26]]
+inflation_radius: 0.5
+
+observation_sources: laser_scan_sensor
+laser_scan_sensor: {sensor_frame: laser, data_type: LaserScan, topic: scan, marking: true, clearing: true}
+
+</code></pre>
+      
+     
       Move_base.launch: updated 5/12
       <pre><code>   
       <launch>
@@ -86,44 +128,7 @@ TJNav is a project by Yuki Oyama and Ethan Liu at the Thomas Jefferson High Scho
 
 </code></pre>
       
-       Local_costmap_parameters.txt: Updated 5/12
-      <pre><code>  
-      local_costmap:
-  global_frame: odom
-  robot_base_frame: base_link
-  update_frequency: 2.0
-  publish_frequency: 2.0
-  static_map: false
-  rolling_window: true
-  width: 6.0
-  height: 6.0
-  resolution: 0.01
-
-controller_frequency: 2.0
-
-</code></pre>
       
-       Global_costmap_parameters.txt: Updated 5/12
-      <pre><code>  
-     global_costmap:
-  global_frame: /map
-  robot_base_frame: base_link
-  update_frequency: 2.0
-  static_map: true
-
-
-</code></pre>
-       Common_costmap_parameters.txt: Updated 5/12
-      <pre><code>    
-   obstacle_range: 10.0
-raytrace_range: 12.0
-footprint: [[-0.22, 0.26], [0.22, 0.26], [0.22, -0.26], [-0.22, -0.26]]
-inflation_radius: 0.5
-
-observation_sources: laser_scan_sensor
-laser_scan_sensor: {sensor_frame: laser, data_type: LaserScan, topic: scan, marking: true, clearing: true}
-
-</code></pre>
              <h2>
       <a id="user-content-header-2" class="anchor" href="#header-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Components</h2>
              <h2>
