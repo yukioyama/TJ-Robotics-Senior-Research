@@ -26,37 +26,102 @@ TJNav is a project by Yuki Oyama and Ethan Liu at the Thomas Jefferson High Scho
       The project consists of two-stages.  Stage one consists of the robot's localization ability.  To address the problem of localization, we utilized LIDAR sensor data for error correction and IMU & VESC Motor Controller Odometry data.  We feed this data into an Adaptive Monte Carlo Algorithm in order to create a probability density function to determine the most likely postition of the robot at each time frame.  Stage two consists of the robot's navigation ability.  To accomplish navigation throughout the TJHSST building, we implement the A-star Algorithm using distance heuristics to determine the shortest path a robot must traverse—the rooms represent nodes of the graph.
        <h2>
       <a id="user-content-header-2" class="anchor" href="#header-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code</h2>
-      <pre><code>   #include <ros/ros.h>
-   #include <move_base_msgs/MoveBaseAction.h>
-   #include <actionlib/client/simple_action_client.h>
-   
-   typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
-   
-   int main(int argc, char** argv){
-      ros::init(argc, argv, "simple_navigation_goals");
-   
-      MoveBaseClient ac("move_base", true);
-  
-      while(!ac.waitForServer(ros::Duration(5.0))){
-          ROS_INFO("Waiting for the move_base action server to come up");
-      }
-  
-      move_base_msgs::MoveBaseGoal goal;
-  
-      goal.target_pose.header.frame_id = "base_link";
-      goal.target_pose.header.stamp = ros::Time::now();
-  
-      goal.target_pose.pose.position.x = 1.0;
-      goal.target_pose.pose.orientation.w = 1.0;
-      
-      if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
-          ROS_INFO("Success");
-      else
-          ROS_INFO("Fail");
-  
-      return 0;
-      }</code></pre>
+      Move_base.launch: updated 5/12
+      <pre><code>   <launch>
+  <!-- map server -->
+  <arg name="map" default="$(find solace)/maps/buki.yaml" />
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map)" />
 
+  <!-- amcl -->
+  <arg name="scan_topic"    default="scan" />
+  <node pkg="amcl" type="amcl" name="amcl" output="screen">
+    <param name="odom_model_type"	value="diff" />
+    <param name="odom_alpha5"		value="0.1" />
+    <param name="gui_publish_rate"	value="4.0" />
+    <param name="laser_max_beams"	value="60" />
+    <param name="laser_max_range"	value="12.0" />
+    <param name="min_particles"		value="500" />
+    <param name="max_particles"		value="2000" />
+    <param name="kld_err"		value="0.01" />
+    <param name="kld_z"			value="0.99" />
+    <param name="odom_alpha1"		value="0.3" />
+    <param name="odom_alpha2"		value="0.3" />
+    <param name="odom_alpha3"		value="0.3" />
+    <param name="odom_alpha4"		value="0.3" />
+    <param name="laser_z_hit"		value="0.5" />
+    <param name="laser_z_short"             value="0.05" />
+    <param name="laser_z_max"               value="0.05" />
+    <param name="laser_z_rand"              value="0.5" />
+    <param name="laser_sigma_hit"           value="0.2" />
+    <param name="laser_lambda_short"        value="0.1" />
+    <param name="laser_model_type"          value="likelihood_field" />
+    <param name="laser_likelihood_max_dist" value="2.0" />
+    <param name="update_min_d"              value="0.15" />
+    <param name="update_min_a"              value="0.2" />
+    <param name="odom_frame_id"             value="gmapping_map" />
+    <param name="base_frame_id"             value="base_link" />
+    <param name="resample_interval"         value="1" />
+    <param name="transform_tolerance"       value="0.5" />
+    <param name="recovery_alpha_slow"       value="0.001" />
+    <param name="recovery_alpha_fast"       value="0.1" />
+    <remap from="scan"                      to="$(arg scan_topic)" />
+    <remap from="map"                       to="navigation_map" />
+  </node>
+
+  <!-- navigation stack -->
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find solace)/config/racecar-v2/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find solace)/config/racecar-v2/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find solace)/config/racecar-v2/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find solace)/config/racecar-v2/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find solace)/config/racecar-v2/base_local_planner_params.yaml" command="load" />
+    <rosparam file="$(find solace)/config/racecar-v2/base_global_planner_params.yaml" command="load" />
+  </node>
+
+  <!-- twist-to-vesc node -->
+  <node name="navigation_twist_to_vesc" type="navigation_twist_to_vesc.py" pkg="solace" output="screen" />
+</launch>
+
+</code></pre>
+      
+       Local_costmap_parameters.txt: Updated 5/12
+      <pre><code>  
+      local_costmap:
+  global_frame: odom
+  robot_base_frame: base_link
+  update_frequency: 2.0
+  publish_frequency: 2.0
+  static_map: false
+  rolling_window: true
+  width: 6.0
+  height: 6.0
+  resolution: 0.01
+
+controller_frequency: 2.0
+
+</code></pre>
+      
+       Global_costmap_parameters.txt: Updated 5/12
+      <pre><code>  
+     global_costmap:
+  global_frame: /map
+  robot_base_frame: base_link
+  update_frequency: 2.0
+  static_map: true
+
+
+</code></pre>
+       Common_costmap_parameters.txt: Updated 5/12
+      <pre><code>    
+   obstacle_range: 10.0
+raytrace_range: 12.0
+footprint: [[-0.22, 0.26], [0.22, 0.26], [0.22, -0.26], [-0.22, -0.26]]
+inflation_radius: 0.5
+
+observation_sources: laser_scan_sensor
+laser_scan_sensor: {sensor_frame: laser, data_type: LaserScan, topic: scan, marking: true, clearing: true}
+
+</code></pre>
              <h2>
       <a id="user-content-header-2" class="anchor" href="#header-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Components</h2>
              <h2>
