@@ -69,14 +69,13 @@ laser_scan_sensor: {sensor_frame: laser, data_type: LaserScan, topic: scan, mark
 </code></pre>
       
      
-      Move_base.launch: updated 5/12
+      Move_base.launch: Updated 5/12
       <pre><code>   
       <launch>
-  <!-- map server -->
+
   <arg name="map" default="$(find solace)/maps/buki.yaml" />
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map)" />
 
-  <!-- amcl -->
   <arg name="scan_topic"    default="scan" />
   <node pkg="amcl" type="amcl" name="amcl" output="screen">
     <param name="odom_model_type"	value="diff" />
@@ -112,7 +111,6 @@ laser_scan_sensor: {sensor_frame: laser, data_type: LaserScan, topic: scan, mark
     <remap from="map"                       to="navigation_map" />
   </node>
 
-  <!-- navigation stack -->
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
     <rosparam file="$(find solace)/config/racecar-v2/costmap_common_params.yaml" command="load" ns="global_costmap" />
     <rosparam file="$(find solace)/config/racecar-v2/costmap_common_params.yaml" command="load" ns="local_costmap" />
@@ -122,7 +120,6 @@ laser_scan_sensor: {sensor_frame: laser, data_type: LaserScan, topic: scan, mark
     <rosparam file="$(find solace)/config/racecar-v2/base_global_planner_params.yaml" command="load" />
   </node>
 
-  <!-- twist-to-vesc node -->
   <node name="navigation_twist_to_vesc" type="navigation_twist_to_vesc.py" pkg="solace" output="screen" />
 </launch>
 
