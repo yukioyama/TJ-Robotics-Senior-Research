@@ -70,60 +70,7 @@ laser_scan_sensor: {sensor_frame: laser, data_type: LaserScan, topic: scan, mark
       
      
       Move_base.launch: Updated 5/12
-      <pre><code>   
-      <launch>
-
-  <arg name="map" default="$(find solace)/maps/buki.yaml" />
-  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map)" />
-
-  <arg name="scan_topic"    default="scan" />
-  <node pkg="amcl" type="amcl" name="amcl" output="screen">
-    <param name="odom_model_type"	value="diff" />
-    <param name="odom_alpha5"		value="0.1" />
-    <param name="gui_publish_rate"	value="4.0" />
-    <param name="laser_max_beams"	value="60" />
-    <param name="laser_max_range"	value="12.0" />
-    <param name="min_particles"		value="500" />
-    <param name="max_particles"		value="2000" />
-    <param name="kld_err"		value="0.01" />
-    <param name="kld_z"			value="0.99" />
-    <param name="odom_alpha1"		value="0.3" />
-    <param name="odom_alpha2"		value="0.3" />
-    <param name="odom_alpha3"		value="0.3" />
-    <param name="odom_alpha4"		value="0.3" />
-    <param name="laser_z_hit"		value="0.5" />
-    <param name="laser_z_short"             value="0.05" />
-    <param name="laser_z_max"               value="0.05" />
-    <param name="laser_z_rand"              value="0.5" />
-    <param name="laser_sigma_hit"           value="0.2" />
-    <param name="laser_lambda_short"        value="0.1" />
-    <param name="laser_model_type"          value="likelihood_field" />
-    <param name="laser_likelihood_max_dist" value="2.0" />
-    <param name="update_min_d"              value="0.15" />
-    <param name="update_min_a"              value="0.2" />
-    <param name="odom_frame_id"             value="gmapping_map" />
-    <param name="base_frame_id"             value="base_link" />
-    <param name="resample_interval"         value="1" />
-    <param name="transform_tolerance"       value="0.5" />
-    <param name="recovery_alpha_slow"       value="0.001" />
-    <param name="recovery_alpha_fast"       value="0.1" />
-    <remap from="scan"                      to="$(arg scan_topic)" />
-    <remap from="map"                       to="navigation_map" />
-  </node>
-
-  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
-    <rosparam file="$(find solace)/config/racecar-v2/costmap_common_params.yaml" command="load" ns="global_costmap" />
-    <rosparam file="$(find solace)/config/racecar-v2/costmap_common_params.yaml" command="load" ns="local_costmap" />
-    <rosparam file="$(find solace)/config/racecar-v2/local_costmap_params.yaml" command="load" />
-    <rosparam file="$(find solace)/config/racecar-v2/global_costmap_params.yaml" command="load" />
-    <rosparam file="$(find solace)/config/racecar-v2/base_local_planner_params.yaml" command="load" />
-    <rosparam file="$(find solace)/config/racecar-v2/base_global_planner_params.yaml" command="load" />
-  </node>
-
-  <node name="navigation_twist_to_vesc" type="navigation_twist_to_vesc.py" pkg="solace" output="screen" />
-</launch>
-
-</code></pre>
+      <img src="movebasecode.png" style="max-width:100%;">
       
       
              <h2>
@@ -143,6 +90,17 @@ laser_scan_sensor: {sensor_frame: laser, data_type: LaserScan, topic: scan, mark
       4/14: Created Map of School for area near Robotics Lab<br />
       <img src="binarymap.png" style="max-width:100%;">
       4/16: Created yml file for our specific map to tell robot dimensions of pixel/meter ratio<br />
+      4/22: Successfully ran teleop program and began running robot around without HDMI connection by SSHing to the robot <br/>
+      5/1: Tested the SLAM mapping ability of robot. <br/>
+      <img src="badmap.png" style="max-width:100%;"> <br/>
+      An example of when the robot moves at 4m/s.  Map is extremely faulty and completely disoriented.  <br/>
+      <img src="goodmap.png" style="max-width:100%;"> <br/>
+      An example of when the robot moves at 1m/s with pauses every 2 seconds.  Map of same area is much more defined. <br/>
+      5/12: Developed move base code and various configuration files (which can be seen in the code section).  Able to navigate with relative accuracy from point A to B.  Obstacle avoidance also worked as shown in images below. <br/>
+      <img src="obstacledirect.png" style="max-width:100%;">
+      <img src="obstacleavoid.png" style="max-width:100%;"></br>
+      5/16: Developed hardware to attach on robot, allowing it to carry materials.</br>
+  <img src="greenbox.png" style="max-width:100%;">
       <h2>
        
       <a id="user-content-header-2" class="anchor" href="#header-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Gallery</h2>
